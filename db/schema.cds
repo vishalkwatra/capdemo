@@ -2,6 +2,20 @@ namespace officesupplies.db;
 
 using {Currency} from '@sap/cds/common';
 
+entity Suppliers {
+    key ID         : UUID;
+        identifier : String;
+        name       : String;
+        phone      : String;
+        building   : String;
+        street     : String @multiline;
+        postCode   : String;
+        city       : String;
+        country    : String;
+        products   : Composition of many Products
+                         on products.supplier = $self;
+}
+
 entity Products {
         @Common.Label :                                     'UUID'
     key ID               : UUID;
@@ -15,18 +29,4 @@ entity Products {
         currency         : Currency;
         supplier         : Association to Suppliers;
         image_url        : String;
-}
-
-entity Suppliers {
-    key ID         : UUID;
-        identifier : String;
-        name       : String;
-        phone      : String;
-        building   : String;
-        street     : String @multiline;
-        postCode   : String;
-        city       : String;
-        country    : String;
-        products   : Composition of many Products
-                         on products.supplier = $self;
 }
