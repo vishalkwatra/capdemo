@@ -1,6 +1,25 @@
 using OfficeSuppliesService as service from '../../srv/officesupplies-service';
 
 annotate service.Suppliers with @(
+    UI.PresentationVariant                  : {
+        Text           : 'Default',
+        SortOrder      : [{Property : name}],
+        Visualizations : ['@UI.LineItem']
+    },
+
+    UI.HeaderInfo                           : {
+        $Type          : 'UI.HeaderInfoType',
+        TypeName       : 'Supplier',
+        TypeNamePlural : 'Suppliers',
+        Title          : {
+            Label : 'Supplier Id',
+            Value : identifier
+        },
+        Description    : {
+            Label : 'Supplier Description',
+            Value : name
+        }
+    },
     UI.LineItem                             : [
         {
             $Type : 'UI.DataField',
@@ -28,44 +47,6 @@ annotate service.Suppliers with @(
             Value : street,
         },
     ],
-    HeaderInfo                              : {
-        $Type          : 'UI.HeaderInfoType',
-        TypeName       : 'Supplier',
-        TypeNamePlural : 'Suppliers',
-        Title          : {
-            Label : 'Supplier Id',
-            Value : identifier
-        },
-        Description    : {
-            Label : 'Supplier Description',
-            Value : name
-        }
-    },
-    Identification                          : [ //Is the main field group
-        {
-            Value : identifier,
-            Label : 'Supplier Id'
-        },
-        {
-            Value : name,
-            Label : 'Supplier Description'
-        }
-    ],
-    HeaderFacets                            : [{
-        $Type  : 'UI.ReferenceFacet',
-        Label  : '{i18n>Created}',
-        Target : '@UI.FieldGroup#SupplierInfo'
-    }],
-
-    FieldGroup #SupplierInfo                : {Data : [
-        {Value : identifier},
-        {Value : name},
-    ]},
-    FieldGroup #Modified                    : {Data : [
-        {Value : modifiedBy},
-        {Value : modifiedAt},
-    ]},
-
     UI.FieldGroup #HeaderGeneralInformation : {
         $Type : 'UI.FieldGroupType',
         Data  : [
@@ -153,8 +134,16 @@ annotate service.Products with @(UI.LineItem : [
         Label : 'price',
         Value : price,
     },
+    {
+        $Type : 'UI.DataField',
+        Label : 'Currency',
+        Value : currency_code,
+    },
 
-], ) {
-    @Measures.ISOCurrency : currency.code
-    price
-};
+], ) ;
+
+
+// {
+//     @Measures.ISOCurrency : currency.code
+//     price
+// }

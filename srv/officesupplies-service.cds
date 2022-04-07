@@ -1,12 +1,18 @@
 using {officesupplies.db as db} from '../db/schema';
+using {sap.common} from '@sap/cds/common';
 
-service OfficeSuppliesService{
+service OfficeSuppliesService {
 
-    entity Suppliers @(odata.draft.enabled: true) as projection on db.Suppliers{
+    entity Suppliers @(odata.draft.enabled : true) as projection on db.Suppliers {
         *,
-        products: redirected to Products
+        products : redirected to Products
     };
 
-    entity Products as projection on db.Products;
+    entity Products                                as projection on db.Products {
+        *,
+        supplier : redirected to Suppliers
+    };
+
+    entity Currencies                              as projection on common.Currencies;
 
 }
