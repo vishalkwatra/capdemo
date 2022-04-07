@@ -12,38 +12,38 @@ annotate service.Suppliers with @(
         TypeName       : 'Supplier',
         TypeNamePlural : 'Suppliers',
         Title          : {
-            Label : 'Supplier Id',
+            Label : 'Identifier',
             Value : identifier
         },
         Description    : {
-            Label : 'Supplier Description',
+            Label : 'Supplier Name',
             Value : name
         }
     },
     UI.LineItem                             : [
         {
             $Type : 'UI.DataField',
-            Label : 'identifier',
+            Label : 'Identifier',
             Value : identifier,
         },
         {
             $Type : 'UI.DataField',
-            Label : 'name',
+            Label : 'Name',
             Value : name,
         },
         {
             $Type : 'UI.DataField',
-            Label : 'phone',
+            Label : 'Phone',
             Value : phone,
         },
         {
             $Type : 'UI.DataField',
-            Label : 'building',
+            Label : 'Building',
             Value : building,
         },
         {
             $Type : 'UI.DataField',
-            Label : 'street',
+            Label : 'Street',
             Value : street,
         },
     ],
@@ -52,42 +52,42 @@ annotate service.Suppliers with @(
         Data  : [
             {
                 $Type : 'UI.DataField',
-                Label : 'identifier',
+                Label : 'Identifier',
                 Value : identifier,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'name',
+                Label : 'Name',
                 Value : name,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'phone',
+                Label : 'Phone',
                 Value : phone,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'building',
+                Label : 'Building',
                 Value : building,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'street',
+                Label : 'Street',
                 Value : street,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'postCode',
+                Label : 'Postal Code',
                 Value : postCode,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'city',
+                Label : 'City',
                 Value : city,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'country',
+                Label : 'Country',
                 Value : country,
             },
         ],
@@ -101,6 +101,7 @@ annotate service.Suppliers with @(
         },
         {
             $Type  : 'UI.ReferenceFacet',
+            ID     : 'Items',
             Label  : 'Product Details',
             Target : 'products/@UI.LineItem',
 
@@ -108,42 +109,93 @@ annotate service.Suppliers with @(
     ]
 );
 
-annotate service.Products with @(UI.LineItem : [
-    {
-        $Type : 'UI.DataField',
-        Label : 'identifier',
-        Value : identifier,
-    },
-    {
-        $Type : 'UI.DataField',
-        Label : 'title',
-        Value : title,
-    },
-    {
-        $Type : 'UI.DataField',
-        Label : 'description',
-        Value : description,
-    },
-    {
-        $Type : 'UI.DataField',
-        Label : 'availability',
-        Value : availability,
-    },
-    {
-        $Type : 'UI.DataField',
-        Label : 'price',
-        Value : price,
-    },
-    {
-        $Type : 'UI.DataField',
-        Label : 'Currency',
-        Value : currency_code,
-    },
 
-], ) ;
+annotate service.Products with @(
+    UI.HeaderInfo                            : {
+        $Type          : 'UI.HeaderInfoType',
+        TypeName       : 'Product',
+        TypeNamePlural : 'Products',
+        Title          : {
+            Label : 'ID',
+            Value : identifier
+        },
+        Description    : {
+            Label : 'Name',
+            Value : title
+        }
+    },
+    UI.LineItem                              : [
+        {
+            $Type : 'UI.DataField',
+            Label : 'ID',
+            Value : identifier,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'Title',
+            Value : title,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'Description',
+            Value : description,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'Availability',
+            Value : availability,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'Price',
+            Value : price,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'Currency',
+            Value : currency_code,
+        },
 
-
-// {
-//     @Measures.ISOCurrency : currency.code
-//     price
-// }
+    ],
+    UI.FieldGroup #ProductGeneralInformation : {
+        $Type : 'UI.FieldGroupType',
+        Data  : [
+            {
+                $Type : 'UI.DataField',
+                Label : 'ID',
+                Value : identifier,
+            },
+            {
+                $Type : 'UI.DataField',
+                Label : 'Name',
+                Value : title,
+            },
+            {
+                $Type : 'UI.DataField',
+                Label : 'Description',
+                Value : description,
+            },
+            {
+                $Type : 'UI.DataField',
+                Label : 'Availability',
+                Value : availability,
+            },
+            {
+                $Type : 'UI.DataField',
+                Label : 'Price',
+                Value : price,
+            },
+            {
+                $Type : 'UI.DataField',
+                Label : 'Currency',
+                Value : currency_code,
+            },
+        ],
+    },
+    UI.Facets                                : [{
+        $Type  : 'UI.ReferenceFacet',
+        ID     : 'ProductGeneralInformation',
+        Label  : 'Product General Information',
+        Target : '@UI.FieldGroup#ProductGeneralInformation',
+    }]
+);
